@@ -11,7 +11,7 @@ if [ -z "$2" ]
 then
   type='patch'
 else
-  type=$1
+  type=$2
 fi
 
 npm version $type -m '[release] npm: @%s-$CDATE'
