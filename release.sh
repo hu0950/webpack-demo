@@ -16,7 +16,7 @@ else
   type=$2
 fi
 
-npm version $type -m '[release] npm: @%s-$CDATE'
+npm version $type -m '[release] npm: `@%s-$CDATE`'
 echo "publish version finished"
 
 git push
