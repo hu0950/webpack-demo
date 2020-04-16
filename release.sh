@@ -9,5 +9,7 @@ fi
 
 npm version $type -m '[release] npm: @%s'
 
+git push
+
 
 
