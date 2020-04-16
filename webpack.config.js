@@ -68,14 +68,24 @@ module.exports = {
   entry: {
     main: './src/index.js'
   },
+  output: {
+    // filename: 'bundle.js',
+    publicPath: "",
+    filename: '[name]_[hash].js', // 考虑到CDN缓存的问题，我们一般会给文件名加上hash, name匹配entry key
+    path: path.resolve(__dirname, 'dist')
+  },
   module: {
     rules: [{
       test: /\.(jpg|png|gif)$/,
       use: {
+        // url-loader 和 file-loader 类似，url-loader多了limit的配置
         loader: 'url-loader',
         options: {
+          // 定义打包到dist目录中图片的文件格式
+          // placeholder-占位符
           name: '[name]_[hash].[ext]',
           outputPath: 'images/',
+          // 若image超过limit的值，打包成图片文件；否则，打包成base64
           limit: 10240
         }
       }
@@ -91,6 +101,8 @@ module.exports = {
         {
           loader: 'css-loader',
           options: {
+            // 0 => no loaders (default)
+            // 对于在css中再引入其它css的场景，每次处理，都会再依次先调用sass-loader和postcss-loader 2个loader
             importLoaders: 2
           }
         },
@@ -99,12 +111,10 @@ module.exports = {
       ]
     }]
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: 'src/index.html'
-  }), new CleanWebpackPlugin(['dist'])],
-  output: {
-    // filename: 'bundle.js',
-    filename: '[name].js', // name匹配entry key
-    path: path.resolve(__dirname, 'dist')
-  }
+  plugins: [
+    new HtmlWebpackPlugin({
+      // 指定index.html的模板
+      template: 'src/index.html'
+    })
+  ]
 }

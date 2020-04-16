@@ -8,5 +8,5 @@ img.classList.add('avatar1');
 
 var root = document.getElementById('root');
 root.append(img);
-console.log('##########3')
+console.log('1')
 // root.innerHTML = '<div class="iconfont icon-changjingguanli"></div>';
