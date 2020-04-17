@@ -36,3 +36,5 @@ echo "git tag $tag_name finished"
 
 git push origin $tag_name
 echo "git push origin $tag_name finished"
+
+bash ./sync2repos.sh
