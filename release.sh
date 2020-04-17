@@ -16,18 +16,18 @@ else
   type=$2
 fi
 
-npm version $type -m '[release] npm: @%s'-$CDATE
+npm version $type -m '[release] npm: @%s'-$DATE
 echo "publish version finished"
 
 git push
 echo "push version info finished"
 
-#支持
+#标记tag
 if [ "$1" ]
 then
-  tag_name="$CDATE-$1"
+  tag_name="$DATE-$1"
 else
-  tag_name="$CDATE"
+  tag_name="$DATE"
 fi
 
 git tag $tag_name
