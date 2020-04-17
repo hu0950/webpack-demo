@@ -12,7 +12,7 @@ fi
 set -e
 echo "Which type of release will you publish? "
 select release_type in "patch[fix bugs]" "minor[publish new functions]" "major[break change,eg: reconstruction or large version requirements iteration]" ; do
-    npm version $release_type -m '[release] npm: @%s'-$DATE
+    npm version $release_type -m '[release] npm: %s'-$DATE
     echo "publish version finished"
     break
 done
