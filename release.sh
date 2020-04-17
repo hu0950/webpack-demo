@@ -4,20 +4,18 @@
 DATE=`date +'%Y%m%d%H%M%S'`
 
 # 更新项目版本，默认patch版本
-if [ -n "`git status --porcelain`" ]; then
- echo "repo is not clean or not sync with remote yet, please commit&push first"
- exit 1
+if [[ -n "`git status --porcelain`" ||  -n "`git diff master origin/master --name-only`" ]]; then
+  echo "Tip: repo is not clean or not sync with remote yet, please commit&push first"
+  exit 1
 fi
 
-if [ -z "$2" ]
-then
-  type='patch'
-else
-  type=$2
-fi
-
-npm version $type -m '[release] npm: @%s'-$DATE
-echo "publish version finished"
+set -e
+echo "Which type of release will you publish? \n Suggestion：patch-fix bugs;\n minor-publish new functions;\n major-break change,eg: reconstruction or large version requirements iteration and so on"
+select release_type in "patch" "minor" "major" ; do
+    npm version $release_type -m '[release] npm: @%s'-$DATE
+    echo "publish version finished"
+    break
+done
 
 git push
 echo "push version info finished"
@@ -27,7 +25,8 @@ if [ "$1" ]
 then
   tag_name="$DATE-$1"
 else
-  tag_name="$DATE"
+  echo "Tip: please add online information, eg: npm run release [online information]"
+  exit 1
 fi
 
 git tag $tag_name
