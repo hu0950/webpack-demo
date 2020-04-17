@@ -10,7 +10,7 @@ if [[ -n "`git status --porcelain`" ||  -n "`git diff master origin/master --nam
 fi
 
 set -e
-echo "Which type of release will you publish? \n Suggestion：patch-fix bugs;\n minor-publish new functions;\n major-break change,eg: reconstruction or large version requirements iteration and so on"
+echo "Which type of release will you publish? "
 select release_type in "patch[fix bugs]" "minor[publish new functions]" "major[break change,eg: reconstruction or large version requirements iteration]" ; do
     npm version $release_type -m '[release] npm: @%s'-$DATE
     echo "publish version finished"
